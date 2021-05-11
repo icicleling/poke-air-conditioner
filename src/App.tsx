@@ -39,32 +39,70 @@ function App() {
   return (
     <Root>
       <AirConditioner>
-        <div>电源: {isOpen && "*"}</div>
-        <div>温度: {temperature}</div>
+        <Temperature>{isOpen && <>温度: {temperature}</>}</Temperature>
+        <Power open={isOpen}>〇</Power>
       </AirConditioner>
 
       <ButtonGroup>
-        <button onClick={toggleOpen}>🔴</button>
-        <button onClick={add}>➕</button>
-        <button onClick={minus}>➖</button>
+        <Button onClick={toggleOpen}>🔴</Button>
+        <Button onClick={add}>➕</Button>
+        <Button onClick={minus}>➖</Button>
       </ButtonGroup>
     </Root>
   );
 }
 
 const Root = styled.div`
+  max-width: 900px;
+  min-width: 600px;
   height: 100vh;
   background: #fff;
+  margin: 0 auto;
 `;
 
 const AirConditioner = styled.div`
-  height: 150px;
+  max-width: 460px;
+  height: 140px;
+  border: 3px lightgray solid;
+  margin: 24px auto;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
 `;
 
 const ButtonGroup = styled.div`
-  & > button:not(:first-child) {
-    margin-left: 24px;
-  }
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 200px;
+`;
+
+const Temperature = styled.div`
+  text-align: right;
+  padding: 0 24px;
+`;
+
+const Power = styled.div<{ open: boolean }>`
+  position: absolute;
+  right: 12px;
+  bottom: 6px;
+  color: lightgray;
+  font-weight: 500;
+  font-size: 16px;
+
+  ${({ open }) =>
+    open &&
+    `
+     color: #4fc5f3;
+  `};
+`;
+
+const Button = styled.button`
+  height: 50px;
+  width: 50px;
+  font-size: 24px;
 `;
 
 export default App;
