@@ -53,16 +53,17 @@ function App() {
 }
 
 const Root = styled.div`
-  max-width: 900px;
-  min-width: 600px;
+  max-width: 600px;
   height: 100vh;
   background: #fff;
   margin: 0 auto;
 `;
 
 const AirConditioner = styled.div`
+  width: calc(100% - 48px);
+  min-width: 320px;
   max-width: 460px;
-  height: 140px;
+  height: 120px;
   border: 3px lightgray solid;
   margin: 24px auto;
   border-radius: 6px;
