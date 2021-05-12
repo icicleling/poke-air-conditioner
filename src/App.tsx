@@ -46,9 +46,9 @@ function App() {
       </AirConditioner>
 
       <ButtonGroup>
-        <Button onClick={toggleOpen}>🔴</Button>
-        <Button onClick={add}>➕</Button>
-        <Button onClick={minus}>➖</Button>
+        <PowerButton onClick={toggleOpen}>🔴</PowerButton>
+        <AddButton onClick={add}>➕</AddButton>
+        <MinusButton onClick={minus}>➖</MinusButton>
       </ButtonGroup>
     </Root>
   );
@@ -77,10 +77,13 @@ const AirConditioner = styled.div`
 `;
 
 const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   height: 200px;
+  gap: 24px;
+  padding: 42px 24px 0;
+  margin: 0 auto;
 `;
 
 const Temperature = styled.div<{ disabled: boolean }>`
@@ -126,12 +129,29 @@ const Power = styled.div<{ open: boolean }>`
 `;
 
 const Button = styled.button`
-  height: 50px;
-  width: 50px;
   font-size: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 99em;
+  outline: none;
+  box-shadow: 2px 2px 6px lightgray;
+
+  &:active {
+    box-shadow: inset 2px 2px 6px lightgray;
+  }
+`;
+
+const PowerButton = styled(Button)`
+  grid-column-start: 1;
+  grid-column-end: 3;
+`;
+
+const AddButton = styled(Button)``;
+const MinusButton = styled(Button)`
+  grid-column-start: 3;
 `;
 
 export default App;
