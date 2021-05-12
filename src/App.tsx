@@ -116,7 +116,7 @@ const Power = styled.div<{ open: boolean }>`
   right: 12px;
   bottom: 6px;
   color: lightgray;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   transition: color 0.5s ease-out;
 
