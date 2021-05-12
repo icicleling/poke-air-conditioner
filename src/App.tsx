@@ -138,6 +138,7 @@ const Button = styled.button`
   border-radius: 99em;
   outline: none;
   box-shadow: 2px 2px 6px lightgray;
+  user-select: none;
 
   &:active {
     box-shadow: inset 2px 2px 6px lightgray;
