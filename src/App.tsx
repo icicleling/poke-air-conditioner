@@ -8,7 +8,7 @@ import {
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const [temperature, setTemperature] = useState(0);
+  const [temperature, setTemperature] = useState(23);
 
   const add = () => {
     if (!isOpen) return;
@@ -38,7 +38,10 @@ function App() {
   return (
     <Root>
       <AirConditioner>
-        <Temperature>{isOpen && <>温度: {temperature}</>}</Temperature>
+        <Temperature disabled={!isOpen}>
+          {isOpen ? temperature : "00"}
+          <TemperatureSymbol>℃</TemperatureSymbol>
+        </Temperature>
         <Power open={isOpen}>〇</Power>
       </AirConditioner>
 
@@ -70,7 +73,7 @@ const AirConditioner = styled.div`
   flex-direction: column;
   justify-content: center;
   position: relative;
-  box-shadow: 2px 6px 10px gray;
+  box-shadow: 4px 6px 12px #808080cc;
 `;
 
 const ButtonGroup = styled.div`
@@ -80,9 +83,29 @@ const ButtonGroup = styled.div`
   height: 200px;
 `;
 
-const Temperature = styled.div`
-  text-align: right;
+const Temperature = styled.div<{ disabled: boolean }>`
   padding: 0 24px;
+  font-family: "DigitalDisplay";
+  font-size: 24px;
+  color: var(--color-blue);
+  display: flex;
+  justify-content: flex-end;
+  text-shadow: 0 0 2px;
+  transition: color 0.5s ease-out;
+
+  ${({ disabled }) =>
+    disabled &&
+    `
+    color: lightgray;
+    text-shadow: none;
+  `}
+`;
+
+const TemperatureSymbol = styled.div`
+  font-size: 12px;
+  position: relative;
+  top: -2px;
+  margin-left: 2px;
 `;
 
 const Power = styled.div<{ open: boolean }>`
@@ -97,7 +120,7 @@ const Power = styled.div<{ open: boolean }>`
   ${({ open }) =>
     open &&
     `
-     color: #87d7f6;
+     color: var(--color-blue);
      text-shadow: 0 0 4px;
   `};
 `;
