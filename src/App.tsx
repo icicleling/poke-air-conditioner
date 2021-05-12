@@ -8,7 +8,6 @@ import {
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  // TODO: 保存到 localStorage
   const [temperature, setTemperature] = useState(0);
 
   const add = () => {
@@ -71,6 +70,7 @@ const AirConditioner = styled.div`
   flex-direction: column;
   justify-content: center;
   position: relative;
+  box-shadow: 2px 6px 10px gray;
 `;
 
 const ButtonGroup = styled.div`
@@ -90,13 +90,15 @@ const Power = styled.div<{ open: boolean }>`
   right: 12px;
   bottom: 6px;
   color: lightgray;
-  font-weight: 500;
   font-size: 16px;
+  font-weight: 600;
+  transition: color 0.5s ease-out;
 
   ${({ open }) =>
     open &&
     `
-     color: #4fc5f3;
+     color: #87d7f6;
+     text-shadow: 0 0 4px;
   `};
 `;
 
@@ -104,6 +106,9 @@ const Button = styled.button`
   height: 50px;
   width: 50px;
   font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default App;
