@@ -155,14 +155,14 @@ const AirOutlet = styled.div`
 
 const Shutter = styled.div<{ open: boolean }>`
   height: 18px;
-  background: #eee;
+  background: #f8f8f8;
   border-radius: 2px 2px 0 0;
   margin: 2px 2px 0;
   transform: rotateX(0deg);
   transform-style: preserve-3d;
   transform-origin: 0 16px;
   border: 1px solid lightgray;
-  transition: transform 4s linear ;
+  transition: transform 4s linear;
 
   ${({ open }) =>
     open &&
