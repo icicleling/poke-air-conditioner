@@ -162,7 +162,7 @@ const Shutter = styled.div<{ open: boolean }>`
   transform-style: preserve-3d;
   transform-origin: 0 16px;
   border: 1px solid lightgray;
-  transition: transform 4s linear;
+  transition: transform 5s linear;
 
   ${({ open }) =>
     open &&
