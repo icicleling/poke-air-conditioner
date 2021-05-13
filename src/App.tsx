@@ -1,3 +1,4 @@
+import { Button } from "components/UI";
 import React, { useState } from "react";
 import styled from "styled-components";
 import {
@@ -43,6 +44,9 @@ function App() {
           <TemperatureSymbol>℃</TemperatureSymbol>
         </Temperature>
         <Power open={isOpen}>〇</Power>
+        <AirOutlet>
+          <Shutter open={isOpen} />
+        </AirOutlet>
       </AirConditioner>
 
       <ButtonGroup>
@@ -128,23 +132,6 @@ const Power = styled.div<{ open: boolean }>`
   `};
 `;
 
-const Button = styled.button`
-  font-size: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f2f2f2;
-  border: none;
-  border-radius: 99em;
-  outline: none;
-  box-shadow: 2px 2px 6px lightgray;
-  user-select: none;
-
-  &:active {
-    box-shadow: inset 2px 2px 6px lightgray;
-  }
-`;
-
 const PowerButton = styled(Button)`
   grid-column-start: 1;
   grid-column-end: 3;
@@ -153,6 +140,35 @@ const PowerButton = styled(Button)`
 const AddButton = styled(Button)``;
 const MinusButton = styled(Button)`
   grid-column-start: 3;
+`;
+
+const AirOutlet = styled.div`
+  height: 20px;
+  background: #333;
+  position: absolute;
+  bottom: 0;
+  width: 80%;
+  margin-left: 16px;
+  border-radius: 2px 2px 0 0;
+  perspective: 1080px;
+`;
+
+const Shutter = styled.div<{ open: boolean }>`
+  height: 18px;
+  background: #eee;
+  border-radius: 2px 2px 0 0;
+  margin: 2px 2px 0;
+  transform: rotateX(0deg);
+  transform-style: preserve-3d;
+  transform-origin: 0 16px;
+  border: 1px solid lightgray;
+  transition: transform 4s linear ;
+
+  ${({ open }) =>
+    open &&
+    `
+    transform: rotateX(-160deg);
+  `}
 `;
 
 export default App;
