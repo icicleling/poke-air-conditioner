@@ -10,6 +10,7 @@ import {
   volumeFadeIn,
   volumeFadeOut,
 } from "utils/soundEffect";
+import { getLocalStorage, setLocalStorage } from "utils/storage";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,10 @@ function App() {
 
     ButtonSoundEffect.currentTime = 0;
     ButtonSoundEffect.play();
-    setTemperature(temperature + 1);
+
+    const newTemperature = temperature + 1;
+    setTemperature(newTemperature);
+    setLocalStorage("temperature", newTemperature);
   };
 
   const minus = () => {
@@ -30,7 +34,10 @@ function App() {
 
     ButtonSoundEffect.currentTime = 0;
     ButtonSoundEffect.play();
-    setTemperature(temperature - 1);
+
+    const newTemperature = temperature - 1;
+    setTemperature(newTemperature);
+    setLocalStorage("temperature", newTemperature);
   };
 
   const toggleOpen = () => {
@@ -55,6 +62,12 @@ function App() {
     setIsOpen(true);
     volumeFadeIn(AirConditionerSoundEffect);
   };
+
+  useEffect(() => {
+    const localTemperature = getLocalStorage("temperature");
+    if (!localTemperature) return;
+    setTemperature(localTemperature);
+  }, []);
 
   useEffect(() => {
     const audioContext = new AudioContext();
