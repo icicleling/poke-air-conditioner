@@ -34,7 +34,7 @@ export const volumeFadeOut = (audio: HTMLAudioElement) => {
       }
 
       audio.volume = Number(audio.volume.toFixed(2)) - 0.01;
-    }, 80);
+    }, 40);
     prevIntervalId = intervalId;
   });
 };
