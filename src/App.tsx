@@ -184,7 +184,7 @@ const AirOutlet = styled.div`
   width: 80%;
   margin-left: 16px;
   border-radius: 2px 2px 0 0;
-  perspective: 1080px;
+  perspective: 900px;
 `;
 
 const Shutter = styled.div<{ open: boolean }>`
