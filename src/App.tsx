@@ -1,15 +1,21 @@
 import { Button } from "components/UI";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { powerOnTime } from "utils/constants";
 import {
   ButtonSoundEffect,
   OnSoundEffect,
   OffSoundEffect,
+  AirConditionerSoundEffect,
+  volumeFadeIn,
+  volumeFadeOut,
 } from "utils/soundEffect";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [temperature, setTemperature] = useState(23);
+
+  const audioContextRef = useRef<AudioContext>();
 
   const add = () => {
     if (!isOpen) return;
@@ -30,11 +36,39 @@ function App() {
   const toggleOpen = () => {
     if (isOpen) {
       OffSoundEffect.play();
-    } else {
-      OnSoundEffect.play();
+      setIsOpen(false);
+      volumeFadeOut(AirConditionerSoundEffect).then(() => {
+        audioContextRef.current?.suspend();
+      });
+      return;
     }
-    setIsOpen(!isOpen);
+
+    OnSoundEffect.play();
+    audioContextRef.current?.resume();
+
+    if (AirConditionerSoundEffect.paused === true) {
+      AirConditionerSoundEffect.volume = 0;
+      AirConditionerSoundEffect.loop = true;
+      AirConditionerSoundEffect.play();
+    }
+
+    setIsOpen(true);
+    volumeFadeIn(AirConditionerSoundEffect);
   };
+
+  useEffect(() => {
+    const audioContext = new AudioContext();
+    const source = audioContext.createMediaElementSource(
+      AirConditionerSoundEffect
+    );
+    source.connect(audioContext.destination);
+    audioContextRef.current = audioContext;
+
+    return () => {
+      source.disconnect(audioContext.destination);
+      audioContext.close();
+    };
+  }, []);
 
   return (
     <Root>
@@ -162,7 +196,7 @@ const Shutter = styled.div<{ open: boolean }>`
   transform-style: preserve-3d;
   transform-origin: 0 16px;
   border: 1px solid lightgray;
-  transition: transform 5s linear;
+  transition: transform ${powerOnTime}s linear;
 
   ${({ open }) =>
     open &&
