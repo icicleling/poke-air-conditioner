@@ -57,7 +57,9 @@ function App() {
   };
 
   useEffect(() => {
-    const audioContext = new AudioContext();
+    const audioContext = new (window.AudioContext ||
+      window.webkitAudioContext)();
+
     const source = audioContext.createMediaElementSource(
       AirConditionerSoundEffect
     );
