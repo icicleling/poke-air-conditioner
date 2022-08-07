@@ -57,6 +57,7 @@ function App() {
   };
 
   useEffect(() => {
+    if (audioContextRef.current) return;
     const audioContext = new (window.AudioContext ||
       window.webkitAudioContext)();
 
@@ -85,11 +86,14 @@ function App() {
         </AirOutlet>
       </AirConditioner>
 
-      <ButtonGroup>
-        <PowerButton onClick={toggleOpen}>🔴</PowerButton>
-        <AddButton onClick={add}>➕</AddButton>
-        <MinusButton onClick={minus}>➖</MinusButton>
-      </ButtonGroup>
+      <Controller>
+        <ButtonGroup>
+          <PowerButton onClick={toggleOpen}>🔴</PowerButton>
+          <AddButton onClick={add}>➕</AddButton>
+          <MinusButton onClick={minus}>➖</MinusButton>
+        </ButtonGroup>
+        <Brand>Pocket-AC</Brand>
+      </Controller>
     </Root>
   );
 }
@@ -116,14 +120,30 @@ const AirConditioner = styled.div`
   box-shadow: 4px 6px 12px #808080cc;
 `;
 
+const Controller = styled.div`
+  padding: 24px;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 5em;
+  left: 0;
+  right: 0;
+  max-width: 300px;
+  box-shadow: inset 0px 0px 6px darkgrey;
+  border-radius: 8px;
+`;
+
+const Brand = styled.div`
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: darkgray;
+`;
+
 const ButtonGroup = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  height: 200px;
   gap: 24px;
-  padding: 42px 24px 0;
-  margin: 0 auto;
 `;
 
 const Temperature = styled.div<{ disabled: boolean }>`

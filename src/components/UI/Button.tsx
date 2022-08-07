@@ -11,6 +11,7 @@ const Button = styled.button`
   outline: none;
   box-shadow: 2px 2px 6px lightgray;
   user-select: none;
+  padding: 6px 0;
 
   &:active {
     box-shadow: inset 2px 2px 6px lightgray;
